@@ -135,11 +135,11 @@ fi
 echo -e "\nGet deployment URL"
 DATA_JSON=$(gcloud run services describe ${SERVICE_NAME} --format=json)
 URL=$(echo $DATA_JSON | jq --raw-output .status.url)
-echo "::set-output name=cloud_run_service_data_json::$DATA_JSON"
-echo "::set-output name=cloud_run_service_url::$URL"
-echo "::set-output name=cloud_run_image::$GCR_IMAGE_NAME"
-echo "::set-output name=cloud_run_image_sha::$GCR_IMAGE_NAME:$GITHUB_SHA"
-echo "::set-output name=cloud_run_image_branch::$GCR_IMAGE_NAME:$BRANCH_SAFE"
+echo "cloud_run_service_data_json=$DATA_JSON" >> $GITHUB_OUTPUT
+echo "cloud_run_service_url=$URL" >> $GITHUB_OUTPUT
+echo "cloud_run_image=$GCR_IMAGE_NAME" >> $GITHUB_OUTPUT
+echo "cloud_run_image_sha=$GCR_IMAGE_NAME:$GITHUB_SHA" >> $GITHUB_OUTPUT
+echo "cloud_run_image_branch=$GCR_IMAGE_NAME:$BRANCH_SAFE" >> $GITHUB_OUTPUT
 
 if [ "$INPUT_HOOK_END" ]; then
   sh $INPUT_HOOK_END
